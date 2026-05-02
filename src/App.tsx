@@ -4,7 +4,7 @@ import Register from './components/Register'
 import useSession from './components/useSession'
 
 function App() {
-  const { isAuthenticated, userInfo } = useSession();
+  const { isAuthenticated } = useSession();
 
   return (
     <BrowserRouter>
