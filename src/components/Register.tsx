@@ -1,6 +1,9 @@
 import { useState } from "react"
 
-const Register = () => {
+const Register = ({isAuthenticated}: {isAuthenticated: boolean}) => {
+
+    if (isAuthenticated) return window.location.href = "/"
+
     const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app" 
     
     const [username, setUsername] = useState<String | null>(null)
