@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-const Login = () => {
+const Login = ({isAuthenticated}: {isAuthenticated: boolean}) => {
+
+    if (isAuthenticated) window.location.href = "/"
 
     const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app" 
 
@@ -8,7 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState<String | null>(null)
 
     const [error, setError] = useState<String | null>(null)
-    
+
     const handleLoginClick = async () => {
         const response = await fetch(url + "/auth/login", {
             method: "POST",
@@ -24,6 +26,8 @@ const Login = () => {
             setError(error)
             return
         }
+
+        if (response.ok) window.location.href = "/user"
     }
     
     return (
