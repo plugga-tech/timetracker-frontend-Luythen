@@ -1,8 +1,10 @@
 import { useState } from "react";
+import Loading from "./Loading";
 
-const Login = ({isAuthenticated}: {isAuthenticated: boolean}) => {
+const Login = ({isAuthenticated, loading }: {isAuthenticated: boolean, loading: boolean}) => {
 
-    if (isAuthenticated) window.location.href = "/"
+    if (loading) return <Loading loading={loading} />
+    if (isAuthenticated) window.location.href = "/panel"
 
     const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app" 
 
@@ -27,7 +29,7 @@ const Login = ({isAuthenticated}: {isAuthenticated: boolean}) => {
             return
         }
 
-        if (response.ok) window.location.href = "/user"
+        if (response.ok) window.location.href = "/panel"
     }
     
     return (
