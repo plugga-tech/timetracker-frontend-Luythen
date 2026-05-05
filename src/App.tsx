@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
     <Navbar isAuthenticated={isAuthenticated} />
       <Routes>
-        <Route path="home" element={<Home/>} />
+        <Route path="/" element={<Home/>} />
         <Route path="login" element={<Login isAuthenticated={isAuthenticated} loading={loading} />} />
         <Route path="register" element={<Register isAuthenticated={isAuthenticated} loading={loading} />} />
         <Route path="panel" element={<UserPanel isAuthenticated={isAuthenticated} userInfo={userInfo} loading={loading} />} />
