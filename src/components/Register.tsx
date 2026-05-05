@@ -1,8 +1,9 @@
 import { useState } from "react"
+import Loading from "./Loading"
 
-const Register = ({isAuthenticated}: {isAuthenticated: boolean}) => {
-
-    if (isAuthenticated) return window.location.href = "/"
+const Register = ({isAuthenticated, loading}: {isAuthenticated: boolean, loading: boolean}) => {
+    if (loading) return <Loading loading={loading} />
+    if (isAuthenticated) return window.location.href = "/panel"
 
     const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app" 
     
