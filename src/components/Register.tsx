@@ -47,6 +47,7 @@ const Register = ({isAuthenticated, loading}: {isAuthenticated: boolean, loading
                     <button className="btn btn-primary" onClick={handleLoginClick}>Login</button>
                 </div>
             </div>
+            <a className="text-center" href="/login">Have an account already login here!</a>
         </div>
     )
 }

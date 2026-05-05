@@ -47,6 +47,7 @@ const Login = ({isAuthenticated, loading }: {isAuthenticated: boolean, loading: 
                     <button className="btn btn-primary" onClick={handleLoginClick}>Login</button>
                 </div>
             </div>
+            <a className="text-center" href="/register">Don't have an account register here</a>
         </div>
     )
 }
