@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="login" element={<Login isAuthenticated={isAuthenticated} loading={loading} />} />
-        <Route path="register" element={<Register isAuthenticated={isAuthenticated} />} />
+        <Route path="register" element={<Register isAuthenticated={isAuthenticated} loading={loading} />} />
         <Route path="panel" element={<UserPanel isAuthenticated={isAuthenticated} userInfo={userInfo} loading={loading} />} />
       </Routes>
     </BrowserRouter>
