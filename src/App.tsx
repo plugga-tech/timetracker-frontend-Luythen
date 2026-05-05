@@ -3,12 +3,13 @@ import Login from './components/Login'
 import Register from './components/Register'
 import useSession from './components/useSession'
 import UserPanel from './components/userPanel';
+import Navbar from './components/Navbar';
 
 function App() {
   const { isAuthenticated, userInfo, loading } = useSession();
-
   return (
     <BrowserRouter>
+    <Navbar isAuthenticated={isAuthenticated} />
       <Routes>
         <Route path="login" element={<Login isAuthenticated={isAuthenticated} loading={loading} />} />
         <Route path="register" element={<Register isAuthenticated={isAuthenticated} loading={loading} />} />
