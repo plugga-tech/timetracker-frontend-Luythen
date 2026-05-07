@@ -1,12 +1,12 @@
 import { useState } from "react";
 import type { category } from "../interface/categoryInterface";
+import { URL_BACKEND } from "./URL";
 
 const EditCategoryItem = ({id, name}: {id:string | null, name: string | null}) => {
         const [editName, setEditName] = useState(name ? name : "")
-        const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app"
         
         const handleSaveClick = async () => {
-            const response = await fetch(url + "/category/update/" + id, {
+            const response = await fetch(URL_BACKEND + "/category/update/" + id, {
                 method: "PUT",
                 credentials: "include",
                 headers: {

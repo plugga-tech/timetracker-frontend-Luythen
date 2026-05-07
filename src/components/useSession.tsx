@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import type { sessionInterface, userInfoInterface } from "../interface/useSessionInterface";
+import { URL_BACKEND } from "./URL";
 
 const useSession = () : sessionInterface => {
     const [isAuthenticated, setAuthenticated] = useState(true)
     const [userInfo, setUserInfo] = useState<userInfoInterface | null>(null)
     const [loading, setLoading] = useState(true)
 
-    const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app" 
-
     useEffect(() => {
-        fetch(url + "/auth/me", {
+        fetch(URL_BACKEND + "/auth/me", {
             method: "GET",
             credentials: "include",
             headers: {

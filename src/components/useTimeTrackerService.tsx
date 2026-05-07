@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import type { timeTrackerInterface, useTimeTrackerServiceInterface } from "../interface/timeTrackerInterface";
+import { URL_BACKEND } from "./URL";
 
 const useTimeTrackerService = (): useTimeTrackerServiceInterface => {
 
     const [timers, setTimes] = useState<timeTrackerInterface[] | null>(null)
     const [loading, setLoading] = useState(true)
 
-    const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app"
-
     useEffect(() => {
-        fetch(url + "/timetracker/list", {
+        fetch(URL_BACKEND + "/timetracker/list", {
             method: "GET",
             credentials: "include",
             headers: {

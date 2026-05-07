@@ -1,11 +1,10 @@
 import { useState } from "react"
 import Loading from "./Loading"
+import { URL_BACKEND } from "./URL"
 
 const Register = ({isAuthenticated, loading}: {isAuthenticated: boolean, loading: boolean}) => {
     if (loading) return <Loading loading={loading} />
     if (isAuthenticated) return window.location.href = "/panel"
-
-    const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app" 
     
     const [username, setUsername] = useState<String | null>(null)
     const [password, setPassword] = useState<String | null>(null)
@@ -14,7 +13,7 @@ const Register = ({isAuthenticated, loading}: {isAuthenticated: boolean, loading
     const [error, setError] = useState<String | null>(null)
         
     const handleLoginClick = async () => {
-        const response = await fetch(url + "/auth/register", {
+        const response = await fetch(URL_BACKEND + "/auth/register", {
             method: "POST",
             credentials: "include",
             headers: {

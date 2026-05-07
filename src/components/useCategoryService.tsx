@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import type { category, useCategoryServiceInterface } from "../interface/categoryInterface";
+import { URL_BACKEND } from "./URL";
 
 const useCategoryService = () : useCategoryServiceInterface => {
     const [categorys, setCategorys] = useState<category[] | null>(null)
     const [loading, setLoading] = useState(true)
 
-    const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app" 
-
     useEffect(() => {
-        fetch(url + "/category/all", {
+        fetch(URL_BACKEND + "/category/all", {
             method: "GET",
             credentials: "include",
             headers: {

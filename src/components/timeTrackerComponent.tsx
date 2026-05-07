@@ -4,6 +4,8 @@ import useCategoryService from "./useCategoryService";
 import useTimeTrackerService from "./useTimeTrackerService"
 import Loading from "./Loading";
 import ReadableTimer from "./ReadableTimer";
+import TimersList from "./timersList";
+import { URL_BACKEND } from "./URL";
 
 const TimeTrackerComponent = (userInfo: userInfoInterface) => {
     const { timers, loading } = useTimeTrackerService()
@@ -12,8 +14,6 @@ const TimeTrackerComponent = (userInfo: userInfoInterface) => {
     const todayDate = new Date();
     const activeTimer = timers?.find((t) => t.stopDate === null)
     const todaysTimers = timers?.filter((t) => t.startDate.getMonth() === todayDate.getMonth() && t.startDate.getDay() === todayDate.getDay() && t.stopDate !== null)
-
-    const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app"
 
     const [categoryID, setCategoryID] = useState<string | null>(null)
 
@@ -30,7 +30,7 @@ const TimeTrackerComponent = (userInfo: userInfoInterface) => {
         }, [])
 
         const handleStopButtonClick = async (id: string | undefined) => {
-            const response = await fetch(url + "/timetracker/stop/" + id, {
+            const response = await fetch(URL_BACKEND + "/timetracker/stop/" + id, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -76,25 +76,9 @@ const TimeTrackerComponent = (userInfo: userInfoInterface) => {
         )
     }
 
-    const TimersList = () => {
-        return (
-            <div className="list-group">
-                {todaysTimers?.map((ti) => (
-                    <div key={ti.id} className="list-group-item list-group-item-action">
-                        <div className="card-body">
-                            <h6 className="card-title">{ti.startDate.toLocaleString()} - {ti.stopDate?.toLocaleString()}</h6>
-                            <h6 className="card-text badge text-bg-info">{ti.category.name}</h6>
-                            <p className="card-text">{ReadableTimer((ti.stopDate !== null ? ti.stopDate?.getTime() : 1) - ti.startDate.getTime())}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        )
-    }
-
     const handleStartButtonClick = async () => {
         if (categoryID != null) {
-            const response = await fetch(url + "/timetracker/create", {
+            const response = await fetch(URL_BACKEND + "/timetracker/create", {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -143,7 +127,7 @@ const TimeTrackerComponent = (userInfo: userInfoInterface) => {
             </div>
             <div className="card mt-3">
                 <Loading loading={loading}>
-                    { todaysTimers?.length ? <TimersList /> : <p>No timers</p> }
+                    { todaysTimers?.length ? <TimersList timer={todaysTimers} categorys={categorys} /> : <p>No timers</p> }
                 </Loading>
             </div>
         </>

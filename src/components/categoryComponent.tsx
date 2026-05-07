@@ -3,15 +3,15 @@ import useCategoryService from "./useCategoryService";
 import type { userInfoInterface } from "../interface/useSessionInterface";
 import Loading from "./Loading";
 import CategoryItem from "./categoryItem";
+import { URL_BACKEND } from "./URL";
 
 const CategoryComponent = (userInfo : userInfoInterface | null) => {
     const { categorys, loading } = useCategoryService()
 
-    const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app"
     const [categoryName, setCategoryName] = useState<string | null>(null)
 
     const handleCreateButtonClick = async () => {
-        const resposne = await fetch(url + "/category/create", {
+        const resposne = await fetch(URL_BACKEND + "/category/create", {
             method: "POST",
             credentials: "include",
             headers: {
