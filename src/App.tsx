@@ -9,17 +9,17 @@ import Statistics from './components/statistics';
 import Admin from './admin/Admin';
 
 function App() {
-  const { isAuthenticated, userInfo, loading } = useSession();
+  const { isAuthenticated, userInfo, loading, isAdmin } = useSession();
   return (
     <BrowserRouter>
-    <Navbar isAuthenticated={isAuthenticated} />
+    <Navbar isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="statistics" element={<Statistics isAuthenticated={isAuthenticated} userInfo={userInfo} loading={loading} />} />
+        <Route path="statistics" element={<Statistics isAuthenticated={isAuthenticated} userInfo={userInfo} loading={loading} isAdmin={isAdmin} />} />
         <Route path="login" element={<Login isAuthenticated={isAuthenticated} loading={loading} />} />
         <Route path="register" element={<Register isAuthenticated={isAuthenticated} loading={loading} />} />
-        <Route path="panel" element={<UserPanel isAuthenticated={isAuthenticated} userInfo={userInfo} loading={loading} />} />
-        <Route path="admin" element={<Admin isAuthenticated={isAuthenticated} userInfo={userInfo} loading={loading} />} />
+        <Route path="panel" element={<UserPanel isAuthenticated={isAuthenticated} userInfo={userInfo} loading={loading} isAdmin={isAdmin} />} />
+        <Route path="admin" element={isAdmin ? <Admin isAuthenticated={isAuthenticated} userInfo={userInfo} loading={loading} isAdmin={isAdmin} /> : <>404</>} />
       </Routes>
     </BrowserRouter>
   )

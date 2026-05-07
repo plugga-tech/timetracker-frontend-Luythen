@@ -1,4 +1,4 @@
-const Navbar = ({isAuthenticated} : {isAuthenticated: boolean}) => {
+const Navbar = ({isAuthenticated, isAdmin} : {isAuthenticated: boolean, isAdmin: boolean}) => {
 
     const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app"
 
@@ -35,6 +35,9 @@ const Navbar = ({isAuthenticated} : {isAuthenticated: boolean}) => {
                 <li className="nav-item">
                   <a className="nav-link" href="/statistics">Statistics</a>
                 </li>
+                { isAdmin ? <li className="nav-item">
+                  <a className="nav-link" href="/admin">Admin</a>
+                </li> : <></>}
               </ul> 
               : 
               <></>

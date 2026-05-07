@@ -12,10 +12,10 @@ const UserPanel = (props: sessionInterface) => {
             <h4 className="text-center">Welcome {props.userInfo?.username}</h4>
             <div className="row mt-3">
                 <div className="col-7">
-                    <TimeTrackerComponent username={props.userInfo?.username} id={props.userInfo?.id} email={props.userInfo?.email} role={props.userInfo?.role} />
+                    <TimeTrackerComponent username={props.userInfo?.username} id={props.userInfo?.id} email={props.userInfo?.email} role={props.userInfo ? props.userInfo.role : "User"} />
                 </div>
                 <div className="col-3">
-                    <CategoryComponent username={props.userInfo?.username} id={props.userInfo?.id} email={props.userInfo?.email} role={props.userInfo?.role}  />
+                    <CategoryComponent username={props.userInfo?.username} id={props.userInfo?.id} email={props.userInfo?.email} role={props.userInfo ? props.userInfo.role : "User"}  />
                 </div>
             </div>
         </div>

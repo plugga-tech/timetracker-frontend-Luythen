@@ -3,31 +3,41 @@ import type { sessionInterface, userInfoInterface } from "../interface/useSessio
 import { URL_BACKEND } from "./URL";
 
 const useSession = () : sessionInterface => {
-    const [isAuthenticated, setAuthenticated] = useState(true)
-    const [userInfo, setUserInfo] = useState<userInfoInterface | null>(null)
+    const [isAuthenticated, setAuthenticated] = useState(false)
+    const [userInfo, setUserInfo] = useState<any>(null)
     const [loading, setLoading] = useState(true)
 
+    const [isAdmin, setIsAdmin] = useState(false)
+
     useEffect(() => {
-        fetch(URL_BACKEND + "/auth/me", {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json"
+        (async () => {
+            const res = await fetch(URL_BACKEND + "/auth/me", {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+
+            console.log(res.status)
+
+            if (!res.ok) {
+                setAuthenticated(false)
+                setIsAdmin(false)
+                setLoading(false)
             }
-        }).then((res) => {
-            if (res.status === 403 && !res.ok) return setAuthenticated(false);
-            if (res.status === 200) {
-                res.json().then((data) => {
-                    setUserInfo(data as userInfoInterface)
-                    setAuthenticated(true)
-                })
+
+            if (res.ok) {
+                const parsedData = await res.json() as userInfoInterface
+                setUserInfo(parsedData)
+                if (parsedData.role === "Admin") setIsAdmin(true)
+                setLoading(false)
+                setAuthenticated(true)
             }
-        }).finally(() => {
-            setLoading(false)
-        })
+        })()
     }, [])
 
-    return { isAuthenticated, userInfo, loading }
+    return { isAuthenticated, userInfo, loading, isAdmin }
 }
 
 export default useSession;
