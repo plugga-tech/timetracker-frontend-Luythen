@@ -3,10 +3,7 @@ import type { userInfoInterface } from "../interface/useSessionInterface";
 import useCategoryService from "./useCategoryService";
 import useTimeTrackerService from "./useTimeTrackerService"
 import Loading from "./Loading";
-
-interface msInteface {
-    ms: number
-}
+import ReadableTimer from "./ReadableTimer";
 
 const TimeTrackerComponent = (userInfo: userInfoInterface) => {
     const { timers, loading } = useTimeTrackerService()
@@ -19,16 +16,6 @@ const TimeTrackerComponent = (userInfo: userInfoInterface) => {
     const url : String = "https://timetracker-backend-app-cwdiu.ondigitalocean.app"
 
     const [categoryID, setCategoryID] = useState<string | null>(null)
-
-    const ReadableTimer = (msI: msInteface) => {
-        var seconds = Math.floor((msI.ms/1000)%60)
-        var minutes = Math.floor((msI.ms/(1000*60)%60))
-        var houres = Math.floor((msI.ms/(1000*60*60)%24))
-
-        return (
-            <>{houres} : {minutes} : {seconds}</>
-        )
-    }
 
     const ActiveTimeComponent = () => {
         const [timer, setTimer] = useState<number>(0)
@@ -66,7 +53,7 @@ const TimeTrackerComponent = (userInfo: userInfoInterface) => {
                             <h3 className="card-title">{activeTimer?.category.name}</h3>
                         </div>
                         <div className="col-3">
-                            <h3 className="text-center"><ReadableTimer ms={timer} /></h3>
+                            <h3 className="text-center">{ReadableTimer(timer)}</h3>
                         </div>
                     </div>
                     <button className="btn btn-danger" onClick={() => handleStopButtonClick(activeTimer?.id) } >Stop</button>
@@ -97,7 +84,7 @@ const TimeTrackerComponent = (userInfo: userInfoInterface) => {
                         <div className="card-body">
                             <h6 className="card-title">{ti.startDate.toLocaleString()} - {ti.stopDate?.toLocaleString()}</h6>
                             <h6 className="card-text badge text-bg-info">{ti.category.name}</h6>
-                            <p className="card-text"><ReadableTimer ms={(ti.stopDate !== null ? ti.stopDate?.getTime() : 1) - ti.startDate.getTime()} /></p>
+                            <p className="card-text">{ReadableTimer((ti.stopDate !== null ? ti.stopDate?.getTime() : 1) - ti.startDate.getTime())}</p>
                         </div>
                     </div>
                 ))}
