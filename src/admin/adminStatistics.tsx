@@ -8,7 +8,7 @@ import { Pie } from "react-chartjs-2";
 
 Chart.register(ArcElement ,Tooltip, Legend)
 
-const AdminStatistics = ({ userID } : { userID: string}) => {
+const AdminStatistics = ({ userID } : { userID: string }) => {
     const [userTimeTrackerData, setUserTimeTrackerData] = useState<timeTrackerInterface[]>([])
     const [error, setError] = useState<string | null>(null)
     const [loading, setLoading] = useState(true)
@@ -37,7 +37,7 @@ const AdminStatistics = ({ userID } : { userID: string}) => {
     }, [])
 
     if (loading) return <Loading loading={loading} />
-    if (error) return {error}
+    if (error) return <div>{error}</div>
 
     const filterUserTimeTrackerData = userTimeTrackerData.filter((utt) => utt.startDate.getMonth() === todaysMonth.getMonth())
     if (filterUserTimeTrackerData === null) return <div className="accordion-body">No active timers this month</div>;
