@@ -1,12 +1,13 @@
 export interface userInfoInterface {
-    id: string | null | undefined
-    username: string | null | undefined
-    email: string | null | undefined
-    role: string | null | undefined
+    id: string
+    username: string
+    email: string
+    role: string
 }
 
 export interface sessionInterface {
     isAuthenticated: boolean
-    userInfo: userInfoInterface | null,
+    userInfo: userInfoInterface
     loading: boolean
+    isAdmin: boolean
 }

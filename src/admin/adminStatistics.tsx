@@ -28,7 +28,12 @@ const AdminStatistics = ({ userID } : { userID: string }) => {
                 if (res.status === 403 && !res.ok) return res.json().then((data) => setError(data));
                 if (res.status === 200) {
                     res.json().then((data) => {
-                        setUserTimeTrackerData(data as timeTrackerInterface[])
+                        const parsedTimes = (data as timeTrackerInterface[]).map((time) => ({
+                            ...time,
+                            startDate: new Date(time.startDate),
+                            stopDate: time.stopDate !== null ? new Date(time.stopDate) : null
+                        }))
+                        setUserTimeTrackerData(parsedTimes)
                     })
                 }
             }).finally(() => {
@@ -40,10 +45,10 @@ const AdminStatistics = ({ userID } : { userID: string }) => {
     if (error) return <div>{error}</div>
 
     const filterUserTimeTrackerData = userTimeTrackerData.filter((utt) => utt.startDate.getMonth() === todaysMonth.getMonth())
-    if (filterUserTimeTrackerData === null) return <div className="accordion-body">No active timers this month</div>;
+    if (filterUserTimeTrackerData.length === 0) return <div className="accordion-body">No active timers this month</div>;
 
     filterUserTimeTrackerData.map((utt) => {
-        if (categoryNames.find((canme) => utt.category.name !== canme) && utt.category.name !== null) categoryNames.push(utt.category.name);
+        if (categoryNames.find((canme) => utt.category.name === canme) === undefined && utt.category.name !== null) categoryNames.push(utt.category.name);
         
         let timer = data.find((dt) => dt.key === utt.category.name && utt.stopDate !== null );
         if (timer !== undefined) {
