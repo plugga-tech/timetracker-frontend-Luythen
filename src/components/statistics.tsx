@@ -4,16 +4,9 @@ import Loading from "./Loading";
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import useCategoryService from "./useCategoryService";
 import useTimeTrackerService from "./useTimeTrackerService";
+import ReadableTimer from "./ReadableTimer";
 
 ChartJS.register(ArcElement ,Tooltip, Legend)
-
-const ReadableTimer = (msI: number) => {
-    var seconds = Math.floor((msI/1000)%60)
-    var minutes = Math.floor((msI/(1000*60)%60))
-    var houres = Math.floor((msI/(1000*60*60)%24))
-
-    return `${houres}H : ${minutes}M : ${seconds}S`
-}
 
 const Statistics = (props: sessionInterface) => {
     const { timers } = useTimeTrackerService()
