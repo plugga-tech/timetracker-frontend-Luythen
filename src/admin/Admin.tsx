@@ -1,5 +1,6 @@
 import Loading from "../components/Loading";
 import type { sessionInterface } from "../interface/useSessionInterface";
+import AdminStatistics from "./adminStatistics";
 import useGetAllUsers from "./useGetAllUsers";
 
 const Admin = (props: sessionInterface) => {
@@ -24,7 +25,7 @@ const Admin = (props: sessionInterface) => {
                                 </button>
                             </h2>
                             <div className="accordion-collapse collapse" aria-labelledby={`${u.id}`} data-bs-parent="#users-accordion">
-
+                                <AdminStatistics userID={props.userInfo?.id ? props.userInfo?.id : ""} />
                             </div>
                         </div>
                     )) }
