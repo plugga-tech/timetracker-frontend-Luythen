@@ -24,9 +24,11 @@ const Register = ({isAuthenticated, loading}: {isAuthenticated: boolean, loading
     
         if (!response.ok) {
             const error = await response.json()
-            setError(error)
+            setError(JSON.stringify(error))
             return
         }
+
+        if (response.ok) window.location.href = "/login"
     }
         
     return (
@@ -34,7 +36,7 @@ const Register = ({isAuthenticated, loading}: {isAuthenticated: boolean, loading
             <div className="card">
                 <div className="card-body">
                     <h4>Register</h4>
-                    {error && <div>
+                    {error !== null && <div>
                         {error}
                     </div> }
                     <label htmlFor="usernameInput" className="form-label">Email</label>
